@@ -3,7 +3,9 @@ import {
   create_order,
   update_order_by_id,
   one_order,
-  all_order
+  all_order,
+  all_log,
+  delete_all_order_fn
 } from '../crud/order'
 import { OrderProps, requestProps } from '../types';
 import { SendGetRequest, SendPutRequest } from '../utils';
@@ -72,24 +74,22 @@ export const add_order = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Product not found in inventory' });
     }
 
-    if (Number(product.stock )< Number(quantity)) {
+    if (Number(product.stockLevel )< Number(quantity)) {
       return res.status(400).json({ message: 'Insufficient stock' });
-    }
+    } 
     // Deduct stock and create order
-    product.quantity -= Number(quantity);
+    product.stockLevel -= Number(quantity);
     const data = {
-      quantity : product.quantity
+      stockLevel : Number(product.stockLevel)
     }
    
     await SendPutRequest({url,data} as requestProps);
-
     const order:any ={
       productId,
-      quantity,
+      quantity:quantity,
       totalPrice: Number(product.price) * Number(quantity),
     };
     const orderedProduct= await create_order(order)
-    
     if (product){
       return res.status(200).json({
         code: 201,
@@ -126,6 +126,59 @@ export const update_order = async (req: Request, res: Response) => {
       });
     }
     ;
+  } catch (error: any) {
+    return res.status(200).json({
+      code: 400,
+      responseCode: error.code,
+      status: "failed",
+      message: error.message,
+      error: "An Error Occured!",
+    });
+  }
+};
+
+
+export const get_all_log = async (req: Request, res: Response) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const product = await all_log({ page: Number(page), limit: Number(limit) });
+    if (product){
+      return res.status(200).json({
+        code: 200,
+        responseCode: 200,
+        status: "successful",
+        message: "fetched Successfully",
+        data: product,
+      });
+    }
+    ;
+  } catch (error: any) {
+    return res.status(200).json({
+      code: 400,
+      responseCode: error.code,
+      status: "failed",
+      message: error.message,
+      error: "An Error Occured!",
+    });
+  }
+};
+
+
+
+export const delete_all_order = async (req: Request, res: Response) => {
+  try {
+ 
+    const product = await delete_all_order_fn();
+    
+      return res.status(200).json({
+        code: 200,
+        responseCode: 200,
+        status: "successful",
+        message: "deleted Successfully",
+      
+      });
+    
+    
   } catch (error: any) {
     return res.status(200).json({
       code: 400,

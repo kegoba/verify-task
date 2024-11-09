@@ -48,3 +48,12 @@ export const all_inventory = async (pagination: Pagination) => {
     };
   };
 
+
+  export const delete_all_inventory = async () => {
+    try {
+      const result = await Inventory.deleteMany({});
+      console.log(`${result.deletedCount} items have been deleted.`);
+    } catch (err) {
+      console.error('Error deleting items:', err);
+    }
+  };

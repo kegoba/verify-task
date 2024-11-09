@@ -10,7 +10,7 @@ export const update_event = async (item:InventoryProps) => {
   try {
     const connection = await connectRabbitMQ();
     const channel = await connection.createChannel();
-    const event = { itemId: item.id, quantity: item.quantity, updatedAt: new Date() };
+    const event = { itemId: item.id, stockLevel: item.stockLevel, updatedAt: new Date() };
     channel.sendToQueue(task, Buffer.from(JSON.stringify(event)));
     console.log('Update event sent successfully');
   } catch (err:any) {
@@ -26,7 +26,7 @@ export const add_event = async (item:InventoryProps) => {
   try {
     const connection = await connectRabbitMQ();
     const channel = await connection.createChannel()
-    const event = { quantity: item.quantity, price: item.price, product_name: item.product_name };
+    const event = { stockLevel: item.stockLevel, price: item.price, product_name: item.product_name };
     channel.sendToQueue(task, Buffer.from(JSON.stringify(event)));
     console.log('Add event sent successfully');
   } catch (err:any) {

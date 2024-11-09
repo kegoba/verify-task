@@ -33,21 +33,17 @@ app.use((req, res) => {
 
 const startServer = async () => {
   try {
-    // Connect to the database
     await connectDatabase();
-
-    // Start the server after successful database connection
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });
-
     // Listen for RabbitMQ events after the server starts
     await checkStockUpdatedEvent();
     await addStockEvent();
 
   } catch (error) {
     console.error('Error starting the server:', error);
-    process.exit(1); // Exit if any step fails (like DB or RabbitMQ)
+    process.exit(1); 
   }
 };
 

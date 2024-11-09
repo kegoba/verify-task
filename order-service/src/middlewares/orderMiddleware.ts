@@ -30,8 +30,8 @@ export const get_one_middleware = (req: Request, res: Response, next: NextFuncti
 
 
 export const update_middleware = (req: Request, res: Response, next: NextFunction) => {
-  const { product_name, price, quantity } = req.body;
-  if (product_name === undefined && price === undefined && quantity === undefined) {
+  const { product_name, price, stockLevel } = req.body;
+  if (product_name === undefined && price === undefined && stockLevel === undefined) {
     return res.status(400).json({
       message: 'field can not be Empty',
     });

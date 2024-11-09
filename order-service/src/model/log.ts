@@ -1,13 +1,10 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import {InventoryProps} from '../types/index'
+import mongoose, { Schema } from 'mongoose';
+import {OrderProps} from '../types/index'
 
+const LogSchema = new Schema({
 
-
-
-const InventorySchema = new Schema({
-    product_name: { type: String, required: true },
-    stockLevel: { type: Number, required: true },
-    price: { type: Number, required: true },
+  event: { type: String, required: true },
+  event_type: { type: String, required: true },
   }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, 
     toJSON: {
@@ -25,8 +22,6 @@ const InventorySchema = new Schema({
       }
     }
   });
-
-  
   
 
-export default mongoose.model<InventoryProps>('Inventory', InventorySchema);
+export default mongoose.model<any>('Log', LogSchema);

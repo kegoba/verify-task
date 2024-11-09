@@ -93,7 +93,6 @@ export const add_inventory = async (req: Request, res: Response) => {
 };
 
 
-
 export const update_inventory = async (req: Request, res: Response) => {
   try {
     const { id }  = req.params
