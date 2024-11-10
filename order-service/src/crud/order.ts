@@ -13,9 +13,10 @@ interface Pagination {
 export const create_order = async (data: OrderProps) => {
   const product = new Order(data);
   await product.save();
-  if (!product) return false
-  return product
+  //if (!product) return null
+  return product || null
 };
+
 
 export const update_order_by_id = async ( id :string, data :OrderProps) => {
   const product = await Order.findByIdAndUpdate(id, data, { new: true });
@@ -27,8 +28,8 @@ export const update_order_by_id = async ( id :string, data :OrderProps) => {
 
 export const one_order = async (id: string) => {
   const product = await Order.findById(id);
-  if (!product) false
-    return product
+  if (!product) null
+    return product //|| false
 };
 
 

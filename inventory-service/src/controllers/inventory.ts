@@ -72,7 +72,7 @@ export const add_inventory = async (req: Request, res: Response) => {
     if (product){
       //add event
       add_event(product)
-      return res.status(200).json({
+      return res.status(201).json({
         code: 201,
         responseCode: 201,
         status: "successful",

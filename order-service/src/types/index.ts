@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 
 export interface OrderProps extends mongoose.Document{
+  _id : string
   productId: string;
   stockLevel: number;
   totalPrice: number;

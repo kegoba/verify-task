@@ -11,17 +11,17 @@ interface Pagination {
 export const create_inventory = async (data: InventoryProps) => {
   const product = new Inventory(data);
   await product.save();
-  if (!product) return false
-  return product
+  //if (!product) return false
+  return product|| false
 };
 
 export const update_inventory_by_id = async ( id :string, data :InventoryProps) => {
   const product = await Inventory.findByIdAndUpdate(id, data, { new: true });
-  console.log(product,"this is updated product crud")
   if (!product) return false
   return product
 
 };
+
 
 export const one_inventory = async (id: string) => {
   const product = await Inventory.findById(id);
@@ -52,7 +52,6 @@ export const all_inventory = async (pagination: Pagination) => {
   export const delete_all_inventory = async () => {
     try {
       const result = await Inventory.deleteMany({});
-      console.log(`${result.deletedCount} items have been deleted.`);
     } catch (err) {
       console.error('Error deleting items:', err);
     }
