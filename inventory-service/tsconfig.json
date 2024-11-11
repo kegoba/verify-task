@@ -8,8 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "resolveJsonModule": true,
-    "jsx": "react"
+    "jsx": "react",
+    "types": ["node", "jest"]
   },
+  
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",

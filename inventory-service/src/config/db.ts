@@ -24,7 +24,7 @@ export const connectRabbitMQ = async () => {
         process.exit(1);
       }
       // Wait before retrying
-      await new Promise((resolve) => setTimeout(resolve, 5000));  // 5 seconds wait
+      await new Promise((resolve) => setTimeout(resolve, 5000));  
     }
   }
   return connection;
