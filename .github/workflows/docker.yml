@@ -31,13 +31,13 @@ jobs:
 
       # Pull image from Docker Hub
       - name: Pull Docker image from Docker Hub
-        run: docker pull kegoba/your-image-name:tag
+        run: docker pull kegoba/verify-task-inventory-service:tag
 
       # Tag the image for GitHub Container Registry
       - name: Tag Docker image for GitHub Container Registry
         run: |
-          docker tag your-dockerhub-username/your-image-name:tag ghcr.io/${{ github.repository_owner }}/your-image-name:tag
+          docker latest kegoba/verify-task-inventory-service:latest ghcr.io/${{ github.kegoba }}/verify-task-inventory-service:latest
 
       # Push the Docker image to GitHub Container Registry
       - name: Push Docker image to GitHub Container Registry
-        run: docker push ghcr.io/${{ github.repository_owner }}/your-image-name:tag
+        run: docker push ghcr.io/${{ github.kegoba }}/verify-task-inventory-service:latest
